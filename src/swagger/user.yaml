@@ -1,0 +1,95 @@
+paths:
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Log in
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Login"
+      security:
+        - AuthorizationToken: []
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ1c2VySWQiOjEsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImZsYXRJZCI6MSwicm9sZUlkIjoxLCJpYXQiOjE2Njk1ODI4NTF9.7M1iS-1EHLXx-PabGl_jfkPsdzk4ehT82Y1eXzPafwY"
+        "404":
+          description: invalid credentials
+        "500":
+          description: internal server error
+
+  /users:
+    post:
+      tags:
+        - users
+      summary: Create a new account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Register"
+      responses:
+        "200":
+          description: successful operation
+        "409":
+          description: username or email are already taken
+        "422":
+          description: invalid request body
+        "500":
+          description: internal server error
+
+  /users/me:
+    get:
+      tags:
+        - users
+      security:
+        - AuthorizationToken: []
+      summary: Get auth token details
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthTokenDetails"
+        "403":
+          description: unauthorized
+        "500":
+          description: internal server error
+
+  /users/{userId}:
+    get:
+      tags:
+        - users
+      security:
+        - AuthorizationToken: []
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: numeric id of the user
+      summary: Get user by id
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "403":
+          description: unauthorized
+        "404":
+          description: user not found
+        "422":
+          description: invalid request params
+        "500":
+          description: internal server error

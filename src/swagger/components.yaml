@@ -1,0 +1,49 @@
+components:
+  schemas:
+    AuthTokenDetails:
+      type: object
+      properties:
+        username:
+          type: string
+          example: JohnDoe10
+        userId:
+          type: integer
+          example: 8
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+          example: test
+        password:
+          type: string
+          example: test
+
+    Register:
+      type: object
+      properties:
+        username:
+          type: string
+          example: JohnDoe10
+        password:
+          type: string
+          example: My_Awesome-Password!
+
+    User:
+      type: object
+      properties:
+        userId:
+          type: number
+          example: 132
+        username:
+          type: string
+          example: JohnDoe10
+        password:
+          type: string
+          example: Hashed_password
+
+  securitySchemes:
+    AuthorizationToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
