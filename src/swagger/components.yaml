@@ -42,6 +42,11 @@ components:
           type: string
           example: Hashed_password
 
+    Upload:
+      type: file
+      propeties:
+        file: binary
+
   securitySchemes:
     AuthorizationToken:
       type: http

@@ -9,6 +9,8 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import path from "path";
 import bodyParser from "body-parser";
+import uploadRouter from "./routers/upload.router";
+import shoppingListRouter from "./routers/shoppingList.router";
 
 dotenv.config();
 
@@ -46,7 +48,6 @@ AppDataSource.initialize()
   });
 
 const app = express();
-const port: number = Number(process.env.PORT) || 3000;
 
 app.use(bodyParser.json());
 app.use(express.json());
@@ -57,7 +58,7 @@ app.use("/api", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/auth", cors(corsOptions), authRouter);
 app.use("/users", cors(corsOptions), userRouter);
 app.use(authMiddleware);
+app.use("/upload", cors(corsOptions), uploadRouter);
+app.use("/shopping-list", cors(corsOptions), shoppingListRouter);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+export default app;

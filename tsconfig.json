@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "lib": ["es5", "es6", "dom"],
+    "lib": ["es5", "es6", "es2017", "dom"],
     "target": "es2021",
-    "types": ["node"],
+    "types": ["node", "jest"],
     "module": "commonjs",
     "moduleResolution": "node",
     "allowJs": true,
@@ -14,8 +14,10 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false
+    "removeComments": false,
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
   "include": ["./src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }
